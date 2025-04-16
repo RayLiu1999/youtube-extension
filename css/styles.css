@@ -1,0 +1,103 @@
+/* 按鈕容器 */
+.yt-extension-button-container {
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 系統按鈕 */
+#youtube-restore-button {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background-color: rgba(255, 0, 0, 0.3);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  opacity: 0.7;
+  transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+}
+
+#youtube-restore-button:hover {
+  background-color: rgba(255, 0, 0, 0.8); /* 懸停時稍微減少透明度 */
+  transform: scale(1.1);
+}
+
+/* 功能按鈕 */
+.yt-extension-button {
+  z-index: 9999;
+  padding: 10px 15px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  top: 70px;
+  right: 20px;
+  position: fixed;
+}
+
+.yt-extension-button:hover {
+  background-color: #cc0000;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.yt-extension-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.yt-extension-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 600px;
+  max-width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 25px;
+}
+
+.yt-extension-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.yt-extension-audio-controls {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  border-radius: 8px;
+  color: white;
+  font-family: Arial, sans-serif;
+}

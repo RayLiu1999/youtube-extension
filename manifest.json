@@ -1,0 +1,69 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube 各種功能插件",
+  "version": "1.0.0",
+  "description": "YouTube 下載（可選擇不同品質、格式）、總結影片功能",
+  "author": "Ray Liu",
+  "permissions": ["activeTab", "scripting", "webRequest", "contextMenus", "tabs", "storage", "downloads", "notifications"],
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "background": {
+    "service_worker": "js/service_worker/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": [
+        "js/utils/utils.js",
+        "js/ui/ui.js",
+        "js/ui/styles.js",
+        "js/ui/icons.js",
+        "js/ui/dialog.js",
+        "js/ui/buttons.js",
+        "js/features/download.js",
+        "js/features/summary.js",
+        "js/core/core.js",
+        "js/core/main.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["css/*.css", "assets/icons/*.svg"],
+      "matches": ["*://www.youtube.com/*"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    },
+    "default_popup": "html/popup.html"
+  },
+  "options_ui": {
+    "page": "html/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "trigger-download": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+6",
+        "mac": "Command+Shift+6"
+      },
+      "description": "快速下載目前影片"
+    },
+    "toggle-online-or-local": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+9",
+        "mac": "Command+Shift+9"
+      },
+      "description": "切換線上/本地模式"
+    }
+  }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube 影片總結</title>
+  <style>
+    body {
+      font-family: "Microsoft JhengHei", Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      min-height: 100vh;
+      font-size: 16px; /* 適中的基本字體大小 */
+    }
+    .container {
+      max-width: 900px; /* 增加容器寬度 */
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 40px; /* 增加內邊距 */
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #ff0000;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      font-size: 28px; /* 適中的標題字體大小 */
+    }
+    h2 {
+      font-size: 22px; /* 適中的二級標題字體大小 */
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .video-info {
+      margin-bottom: 25px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      font-size: 16px; /* 適中的影片資訊字體大小 */
+    }
+    .summary-content {
+      line-height: 1.9; /* 增加行高 */
+      white-space: pre-wrap;
+      font-size: 17px; /* 適中的總結內容字體大小 */
+    }
+    .summary-content p {
+      margin-bottom: 20px; /* 增加段落間距 */
+    }
+    .timestamp {
+      color: #666;
+      font-size: 14px; /* 適中的時間戳字體大小 */
+      margin-top: 35px;
+      text-align: right;
+    }
+    .highlight {
+      background-color: #fff3cd;
+      padding: 3px 6px;
+      border-radius: 3px;
+    }
+    
+    /* 載入狀態的樣式 */
+    .loading-view {
+      text-align: center;
+      padding: 50px 30px; /* 增加內邊距 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader {
+      border: 6px solid #f3f3f3; /* 增加邊框寬度 */
+      border-top: 6px solid #ff0000;
+      border-radius: 50%;
+      width: 60px; /* 增加動畫大小 */
+      height: 60px;
+      animation: spin 2s linear infinite;
+      margin: 25px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .status {
+      margin-top: 25px;
+      font-style: italic;
+      color: #777;
+      font-size: 16px; /* 適中的狀態文字大小 */
+    }
+    
+    /* 顯示/隱藏元素 */
+    .hidden {
+      display: none;
+    }
+    .copy-btn {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 20px; /* 增加按鈕內邊距 */
+      margin-top: 25px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px; /* 適中的按鈕文字大小 */
+      transition: background-color 0.3s;
+      font-weight: bold; /* 增加按鈕文字粗度 */
+    }
+    .copy-btn:hover {
+      background-color: #45a049;
+    }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px; /* 適中的頁腳文字大小 */
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <!-- 載入中視圖 -->
+  <div id="loading-view" class="container loading-view">
+    <h1>正在處理您的影片</h1>
+    <p>系統正在分析影片內容並生成總結，請稍候片刻。</p>
+    <div class="loader"></div>
+    <p class="status">已處理 <span id="process-time">0</span> 秒，請耐心等待...</p>
+  </div>
+
+  <!-- 總結內容視圖 -->
+  <div id="summary-view" class="container hidden">
+    <h1>YouTube 影片總結</h1>
+    <div class="video-info" id="video-info">
+      正在載入影片資訊...
+    </div>
+    <h2>總結內容</h2>
+    <div class="summary-content" id="summary-content">
+      正在載入總結內容...
+    </div>
+    <button class="copy-btn" id="copy-btn">複製總結內容</button>
+    <div class="timestamp" id="timestamp">
+      總結生成時間：<span id="gen-time"></span>
+    </div>
+    <div class="footer">
+      由 YouTube 下載擴充功能生成 | 總結內容僅供參考
+    </div>
+  </div>
+
+  <script src="../js/pages/summary.js"></script>
+</body>
+</html>

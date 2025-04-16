@@ -1,0 +1,22 @@
+{
+  "SERVICE_URLS": {
+    "download_and_summary": {
+      "online": "https://your-online-webhook-url.com/webhook/download-video",
+      "local": "http://localhost:5678/webhook/download-video"
+    },
+    "file_url": {
+      "online": "https://your-download-base-url.com/",
+      "local": ""
+    },
+    "get_summary": {
+      "online": "https://your-online-webhook-url.com/webhook/summary-content",
+      "local": "http://localhost:5678/webhook/summary-content"
+    }
+  },
+  "BEARER_TOKEN": "your-bearer-token-here",
+  "IS_ONLINE_MODE": true,
+  "VIDEO_SETTINGS": {
+    "quality": "highest",
+    "format": "mp4"
+  }
+}
