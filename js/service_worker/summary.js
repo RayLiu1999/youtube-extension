@@ -63,9 +63,6 @@ async function handleCheckVideoSummaryRequest(request, sender, sendResponse) {
   } catch (error) {
     console.error('處理檢查摘要請求時發生錯誤:', error);
     sendResponse({ success: false, error: error.message });
-    
-    // 顯示錯誤頁面
-    showErrorPage(`檢查摘要失敗: ${error.message}`);
   }
 }
 
@@ -169,14 +166,6 @@ function responseAndSendSummary(sendResponse, tab, options = {}) {
   message = { ...message, ...options };
   sendResponse(message);
   return;
-}
-
-/**
- * 顯示錯誤頁面
- * @param {string} message - 錯誤訊息
- */
-function showErrorPage(message) {
-  chrome.tabs.create({ url: 'error.html?message=' + encodeURIComponent(message) });
 }
 
 export { handleCheckVideoSummaryRequest, handleSummaryRequest };
