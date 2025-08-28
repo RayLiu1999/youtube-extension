@@ -141,6 +141,7 @@ function handleDownloadResponse(jsonData, sendResponse) {
           resolve(successMessage);
         }
       });
+      return;
     }
 
     errorMessage.error = '下載失敗';
