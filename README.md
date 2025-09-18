@@ -66,6 +66,66 @@
 }
 ```
 
+### 系統架構
+```mermaid
+graph TD
+  subgraph "使用者介面 (YouTube 頁面)"
+    direction LR
+    A[Content Scripts: main.js] --> B{UI 元件: buttons.js};
+    B --> C[下載按鈕];
+    B --> D[總結按鈕];
+  end
+
+  subgraph "背景服務 (Service Worker)"
+    direction TB
+    E[background.js] -- 監聽事件 --> F[commands.js: 快捷鍵];
+    E -- 監聽訊息 --> G[webhook.js: 與後端通訊];
+    G --> H[download.js: 處理下載];
+    G --> I[summary.js: 處理總結];
+    E -- 管理 --> J[config.js: 讀寫設定];
+  end
+
+  subgraph "擴充功能頁面"
+    direction TB
+    K[popup.html] --> L[popup.js];
+    M[options.html] --> N[options.js];
+    O[summary.html] --> P[summary.js];
+  end
+
+  subgraph "n8n服務 (Webhook)"
+    direction TB
+    Q[線上/本地伺服器];
+    Q --> R[yt-dlp 影片下載與處理];
+    Q --> S[yt-dlp 下載影片並轉成 MP3];
+    S --> T[OpenAI Whisper API 語音轉文字];
+    T --> U[OpenAI Chat API 文字總結生成];
+  end
+
+  %% 互動流程
+  C -- 點擊 --> E;
+  D -- 點擊 --> E;
+  F -- 觸發 --> E;
+  
+  E -- 傳送請求 --> G;
+  G -- 呼叫 API --> Q;
+
+  N -- 更新設定 --> J;
+  L -- 互動 --> E;
+  
+  I -- 完成後開啟 --> O;
+  P -- 獲取內容 --> G;
+
+  classDef user fill:#4F8EF7,color:#fff,stroke:#333,stroke-width:2px;
+  classDef service fill:#34C759,color:#fff,stroke:#333,stroke-width:2px;
+  classDef pages fill:#FF9500,color:#fff,stroke:#333,stroke-width:2px;
+  classDef backend fill:#AF52DE,color:#fff,stroke:#333,stroke-width:2px;
+
+  class A,B,C,D user;
+  class E,F,G,H,I,J service;
+  class K,L,M,N,O,P pages;
+  class Q,R,S,T,U backend;
+```
+
 ### 檔案結構
 
 ```
@@ -155,6 +215,57 @@ Set the following parameters in `config/config.json`:
     "format": "mp4"
   }
 }
+```
+
+### System Architecture
+```mermaid
+graph TD
+  subgraph "User Interface (YouTube Page)"
+    direction LR
+    A[Content Scripts: main.js] --> B{UI Components: buttons.js};
+    B --> C[Download Button];
+    B --> D[Summary Button];
+  end
+  subgraph "Background Service (Service Worker)"
+    direction TB
+    E[background.js] -- Listen to Events --> F[commands.js: Keyboard Shortcuts];
+    E -- Listen to Messages --> G[webhook.js: Communicate with Backend];
+    G --> H[download.js: Handle Downloads];
+    G --> I[summary.js: Handle Summarization];
+    E -- Manage --> J[config.js: Read/Write Settings];
+  end
+  subgraph "Extension Pages"
+    direction TB
+    K[popup.html] --> L[popup.js];
+    M[options.html] --> N[options.js];
+    O[summary.html] --> P[summary.js];
+  end
+  subgraph "n8n Service (Webhook)"
+    direction TB
+    Q[Online/Local Server];
+    Q --> R[yt-dlp Video Download and Processing];
+    Q --> S[yt-dlp Download Video and Convert to MP3];
+    S --> T[OpenAI Whisper API Speech-to-Text];
+    T --> U[OpenAI Chat API Text Summarization];
+  end
+  %% Interaction Flow
+  C -- Click --> E;
+  D -- Click --> E;
+  F -- Trigger --> E;
+  E -- Send Request --> G;
+  G -- Call API --> Q;
+  N -- Update Settings --> J;
+  L -- Interact --> E;
+  I -- Open After Completion --> O;
+  P -- Fetch Content --> G;
+  classDef user fill:#4F8EF7,color:#fff,stroke:#333,stroke-width:2px;
+  classDef service fill:#34C759,color:#fff,stroke:#333,stroke-width:2px;
+  classDef pages fill:#FF9500,color:#fff,stroke:#333,stroke-width:2px;
+  classDef backend fill:#AF52DE,color:#fff,stroke:#333,stroke-width:2px;
+  class A,B,C,D user;
+  class E,F,G,H,I,J service;
+  class K,L,M,N,O,P pages;
+  class Q,R,S,T,U backend;
 ```
 
 ### File Structure
